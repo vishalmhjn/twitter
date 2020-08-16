@@ -32,11 +32,13 @@ class MyStreamListener(tweepy.StreamListener):
 	def on_status(self, status):
 		record = {'Text': status.text, 'Coordinates': status.coordinates, 'Created At': status.created_at}
 		self.counter += 1
-		if self.counter <= 1000:
-			print(record)
-			return True
-		else:
-			return False
+		print(record)
+		return True
+		# if self.counter <= 1000:
+		# 	print(record)
+		# 	return True
+		# else:
+		# 	return False
 
 	def on_error(self, status_code):
 		if status_code == 420:
