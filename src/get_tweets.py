@@ -12,15 +12,16 @@ auth = tweepy.OAuthHandler('', '')
 auth.set_access_token('' , '')
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
 auth.set_access_token(config.access_token, config.access_token_secret)
-api = tweepy.API(auth)
+api = tweepy.API(auth, timeout=400)
 
 # Assign coordinates to the variable
-box = [2.2110,48.7870,2.4678,48.9455]
+# box = [2.2110,48.7870,2.4678,48.9455] # paris
+box = [11.2699,47.9798,11.8556,48.2987] # munich
 
 # initialize blank list to contain tweets
 tweets = []
 # file name that you want to open is the second argument
-save_file = open('../data/16aug.json', 'a')
+save_file = open('../data/munich.json', 'a')
 
 #override tweepy.StreamListener to add logic to on_status
 class MyStreamListener(tweepy.StreamListener):
