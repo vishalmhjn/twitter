@@ -6,22 +6,33 @@ except ImportError:
 import tweepy, sys
 from time import sleep
 import config
-
+import sys
 # Access and authorize our Twitter credentials from credentials.py
 auth = tweepy.OAuthHandler('', '')
 auth.set_access_token('' , '')
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
 auth.set_access_token(config.access_token, config.access_token_secret)
-api = tweepy.API(auth, timeout=400)
+api = tweepy.API(auth, timeout=2000)
 
 # Assign coordinates to the variable
-# box = [2.2110,48.7870,2.4678,48.9455] # paris
-box = [11.2699,47.9798,11.8556,48.2987] # munich
+city = sys.argv[1]
+
+if city=='san_francisco':
+	box = [-122.5211,37.7130,-122.3540,37.8151]
+elif city== 'paris':
+	box = [2.2110,48.7870,2.4678,48.9455] # paris
+elif city=='munich':
+	box = [11.2699,47.9798,11.8556,48.2987] # munich
+else:
+	raise("Enter a valid city")
+ # sanfrancisco
+
+#
 
 # initialize blank list to contain tweets
 tweets = []
 # file name that you want to open is the second argument
-save_file = open('../data/munich.json', 'a')
+save_file = open('../data/'+city+'.json', 'a')
 
 #override tweepy.StreamListener to add logic to on_status
 class MyStreamListener(tweepy.StreamListener):
